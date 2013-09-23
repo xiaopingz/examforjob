@@ -1,3 +1,4 @@
+#if 0
 #include<iostream>
 
 int transform(int n, int i, int j )
@@ -98,3 +99,5 @@ int main(){
 	std::cout<<"NO"<<std::endl;
 	return 0;
 }
+
+#endif
