@@ -1,6 +1,5 @@
 #include<iostream>
 #include <string>
-//ctve online 
 #if 0
 int isPrimeNum(int n)
 {
