@@ -1,4 +1,6 @@
 #if 0
+
+//huawei 3
 #include<iostream>
 
 int transform(int n, int i, int j )

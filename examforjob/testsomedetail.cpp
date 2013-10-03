@@ -50,7 +50,11 @@ public:
 	}
 };
 
+
+#include <iostream>
 void main(){
+	char str[] = "12345";
+	std::cout<<sizeof(str)<<std::endl;
 	/*int a = 4,b = 5;
 	printf("%%%d",(a/b)*100);*/
 
@@ -61,21 +65,22 @@ void main(){
 	}
 	printf("%d",sum);*/
 
-	printf("%d\n",sizeof(foo));
+	//printf("%d\n",sizeof(foo));
 
-	char * buf = (char *)malloc(16);
-	strcpy(buf,"hello");
-	printf("%d\n",sizeof(buf));
-	calc_buf_len(buf);
-	free( buf );
+	//char * buf = (char *)malloc(16);
+	//strcpy(buf,"hello");
+	//printf("%d\n",sizeof(buf));
+	//calc_buf_len(buf);
+	//free( buf );
 
-	int a[] = {1,2,3,4,5,6};
-	int *b	=	new int[6];
-	std::cout<<sizeof(a)<<" "<<sizeof(b)<<std::endl;
+	//int a[] = {1,2,3,4,5,6};
+	//int *b	=	new int[6];
+	//std::cout<<sizeof(a)<<" "<<sizeof(b)<<std::endl;
 
-	ff::Base * p = new Derive();
-	((ff::Base *)p)->prepare();
-	delete p;
+	//ff::Base * p = new Derive();
+	//((ff::Base *)p)->prepare();
+	//delete p;
+
 }
 
 #endif

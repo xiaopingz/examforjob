@@ -1,5 +1,5 @@
 #if 0
-
+//huawei  2
 #include<string>
 #include<iostream>
 #include<algorithm>

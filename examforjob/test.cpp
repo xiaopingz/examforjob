@@ -1,5 +1,6 @@
 #include<iostream>
 #include <string>
+//ctve online 
 #if 0
 int isPrimeNum(int n)
 {
@@ -186,7 +187,7 @@ int main()
 	printf("%d", w);
 }
 
-#endif
+
 
 #include <stdio.h>
 void main()
@@ -216,3 +217,5 @@ void main()
 	}
 	printf("\n");
 }
+
+#endif
