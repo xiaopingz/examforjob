@@ -1,4 +1,4 @@
-#if 1
+#if 0
 #include<iostream>
 
 //microsoft test(2013.9.28)
@@ -64,6 +64,7 @@ list reOrder(list L)
 	return L;
 }
 
+//另一种解法
 //反转链表
 list reverse(list L)
 {

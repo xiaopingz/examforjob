@@ -1,8 +1,10 @@
 #include<vector>
 #include<string>
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
+//question 1/2
 int		strToInt(char * a, int len)
 {
 	int sum = 0;
@@ -101,45 +103,104 @@ string merge(string str1,string str2)
 }
 
 vector < string > mergeSortIntervals(vector < string > intervalSequence1, vector < string > intervalSequence2) {
-	vector<string> seq(intervalSequence1);
-	vector<string>::iterator it1 = seq.begin();
+	vector<string> seq;
+	vector<string>::iterator it1 = intervalSequence1.begin();
 	vector<string>::iterator it2 = intervalSequence2.begin();
-	for( ;it2!=intervalSequence2.end();++it2 )
+	while( it1!=intervalSequence1.end() && it2!=intervalSequence2.end() )
 	{
-		while( it1!=seq.end() )
+		if( isBiggerThan(*it2,*it1) )
+			seq.push_back(*it1++);
+		else if( isSmallerThan(*it2,*it1) )
+			seq.push_back(*it2++);
+		else
 		{
-			if( isBiggerThan(*it2,*it1) )
-			{
-				++it1;
-			}
-			if( isSmallerThan(*it2,*it1) )
-			{
-				seq.insert(it1,*it2);
-				break;
-			}
-			if( !isBiggerThan(*it2,*it1) && !isSmallerThan(*it2,*it1) )
-			{
-				string str = merge(*it1,*it2);
-				seq.insert(it1,str);
-				seq.erase(it1);
-				break;
-			}
+			string str = merge(*it1,*it2);
+			seq.push_back(str);
+			++it1;
+			++it2;
 		}
 	}
+	while( it1!=intervalSequence1.end() )
+		seq.push_back(*it1++);
+	while( it2!=intervalSequence2.end() )
+		seq.push_back(*it2++);
 	return seq;
+}
+
+//question 2/2
+
+struct treeNode
+{
+	int data;
+	treeNode * lChild;
+	treeNode * rChild;
+	treeNode(int a):data(a),lChild(nullptr),rChild(nullptr){};
+};
+
+void getPostOrder(treeNode * T,vector<int> &postOrder)
+{
+	if( T->lChild )
+		getPostOrder(T->lChild,postOrder);
+	if( T->rChild )
+		getPostOrder(T->rChild,postOrder);
+	postOrder.push_back(T->data);
+}
+
+void makeTree(vector<int> preOrder,vector<int> midOrder,int s1,int s2,int len, treeNode * & root)
+{
+	if( len==1 )
+		return;
+	int pos = s2;
+	for( ;pos<s2+len;++pos )
+	{
+		if( midOrder[pos]==preOrder[s1] )
+			break;
+	}
+	int lNum	=	pos - s2;
+	int rNum	=	s2 + len - 1 - pos;
+	if( lNum>0 )
+	{
+		root->lChild = new treeNode(preOrder[s1+1]);
+		makeTree(preOrder,midOrder,s1+1,s2,lNum,root->lChild);
+	}
+	if( rNum>0 )
+	{
+		root->rChild = new treeNode(preOrder[s1+lNum+1]);
+		makeTree(preOrder,midOrder,s1+lNum+1,s2+lNum+1,rNum,root->rChild);
+	}
+}
+
+vector<int> getPostOrderTraversal(vector<int> preOrder,vector<int> midOrder)
+{
+	 vector<int> postOrder;
+	 treeNode * L	=	new treeNode(preOrder[0]);
+	 makeTree(preOrder,midOrder,0,0,preOrder.size(),L);
+	 getPostOrder(L,postOrder);
+	 return postOrder;
 }
 
 int main()
 {
-	vector<string> v1,v2,v3;
-	string str = "'1,2'";
+	//question 1/2
+	/*vector<string> v1,v2,v3;
+	string str = "\"1,2\"";
 	v1.push_back(str);
-	str = "'3,5'";
+	str = "\"3,5\"";
 	v1.push_back(str);
-	str = "'4,6'";
+	str = "\"4,6\"";
 	v2.push_back(str);
 	v3 = mergeSortIntervals(v1,v2);
 	for( vector<string>::iterator it = v3.begin();it!=v3.end();++it )
+	{
+		cout<<*it<<" ";
+	}*/
+
+	//question 2/2
+	int a1[] = {1,3,8,2,6,4,5};
+	int a2[] = {8,3,2,1,5,4,6};
+	vector<int> v1(a1,a1+7),v2(a2,a2+7),v3;
+	v3	=	getPostOrderTraversal(v1,v2);
+	for( vector<int>::iterator it = v3.begin();it!=v3.end();++it )
 	{
 		cout<<*it<<" ";
 	}
